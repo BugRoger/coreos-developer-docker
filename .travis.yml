@@ -14,7 +14,7 @@ script:
   - bunzip2 -k coreos_developer_container.bin.bz2
   - mkdir ${COREOS_VERSION}
   - sudo mount -o ro,loop,offset=2097152 coreos_developer_container.bin ${COREOS_VERSION}
-	- sudo tar -cp --one-file-system -C ${COREOS_VERSION} . | docker import - ${DOCKER_USERNAME}/coreos-developer:${COREOS_VERSION}
+  - sudo tar -cp --one-file-system -C ${COREOS_VERSION} . | docker import - ${DOCKER_USERNAME}/coreos-developer:${COREOS_VERSION}
 
 after_success:
   - docker push ${DOCKER_USERNAME}/coreos-developer:${COREOS_VERSION}
