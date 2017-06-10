@@ -12,7 +12,7 @@ before_script:
   - export $(cat version.txt | xargs)
 
 script:
-  - curl -s https://hub.docker.com/v2/repositories/${DOCKER_USERNAME}/coreos-developer/tags/?page_size=10000 | jq -e "[.results | .[] | .name == \"${COREOS_VERSION}\"] | any"
+  - curl -s https://hub.docker.com/v2/repositories/${DOCKER_USERNAME}/coreos-developer/tags/?page_size=10000 | jq -e "[.results | .[] | .name == \"${COREOS_VERSION}\"] | any | not"
 
 after_success:
   - curl -L https://${COREOS_TRACK}.release.core-os.net/amd64-usr/${COREOS_VERSION}/coreos_developer_container.bin.bz2 -o coreos_developer_container.bin.bz2
