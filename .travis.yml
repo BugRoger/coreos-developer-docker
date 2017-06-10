@@ -4,4 +4,4 @@ language: go
 
 before_script:
   - sudo apt-get update 
-  - sudo apt-get install systemd-container
+  - sudo apt-get install systemd
