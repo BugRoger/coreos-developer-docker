@@ -23,7 +23,9 @@ after_success:
   - docker push ${DOCKER_USERNAME}/coreos-developer:${COREOS_VERSION}
 
 notifications:
-  slack: d26a:3WFB88N8V6onXGdA4fCwOvd4
+  slack: 
+    rooms:
+      - d26a:3WFB88N8V6onXGdA4fCwOvd4
     on_success: always 
     on_failure: never 
   email:
