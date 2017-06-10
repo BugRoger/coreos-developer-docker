@@ -2,6 +2,8 @@ dist: trusty
 sudo: required
 
 env:
+  - COREOS_TRACK=alpha
+  - COREOS_TRACK=beta
   - COREOS_TRACK=stable
 
 before_script:
