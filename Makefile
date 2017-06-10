@@ -1,7 +1,6 @@
 COREOS_TRACK   ?= beta
 COREOS_VERSION ?= 1409.1.0
 
-
 .PHONY: all
 all:
 	curl -L https://${COREOS_TRACK}.release.core-os.net/amd64-usr/${COREOS_VERSION}/coreos_developer_container.bin.bz2 -o coreos_developer_container.bin.bz2
