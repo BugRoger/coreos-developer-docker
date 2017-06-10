@@ -2,7 +2,7 @@ dist: trusty
 sudo: required
 
 env:
-  - COREOS_TRACK=beta
+  - COREOS_TRACK=stable
 
 before_script:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
@@ -19,3 +19,12 @@ after_success:
   - sudo mount -o ro,loop,offset=2097152 coreos_developer_container.bin ${COREOS_VERSION}
   - sudo tar -cp --one-file-system -C ${COREOS_VERSION} . | docker import - ${DOCKER_USERNAME}/coreos-developer:${COREOS_VERSION}
   - docker push ${DOCKER_USERNAME}/coreos-developer:${COREOS_VERSION}
+
+notifications:
+  slack: d26a:3WFB88N8V6onXGdA4fCwOvd4
+    on_success: always 
+    on_failure: never 
+  email:
+    recipients:
+      on_success: never
+      on_failure: never 
