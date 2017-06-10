@@ -3,8 +3,6 @@ sudo: required
 
 env:
   - COREOS_TRACK=alpha
-  - COREOS_TRACK=beta
-  - COREOS_TRACK=stable
 
 before_script:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
