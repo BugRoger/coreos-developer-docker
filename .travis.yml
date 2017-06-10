@@ -1,6 +1,3 @@
 dist: trusty
 sudo: required
-language: ruby
-
-script:
-  - build.sh
+language: go
