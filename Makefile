@@ -6,7 +6,7 @@ all: version.txt coreos_developer_container.bin
 	export $(cat version.txt | xargs)
 	mkdir ${COREOS_VERSION}
 	sudo mount -o ro,loop,offset=2097152 coreos_developer_container.bin ${COREOS_VERSION}
-	tar -cp --one-file-system -C ${COREOS_VERSION} . | docker import - bugroger/coreos-developer:${COREOS_VERSION}
+	sudo tar -cp --one-file-system -C ${COREOS_VERSION} . | docker import - bugroger/coreos-developer:${COREOS_VERSION}
 	docker push bugroger/coreos-developer:${COREOS_VERSION}
 
 version.txt:
