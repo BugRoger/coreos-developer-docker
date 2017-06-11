@@ -31,4 +31,4 @@ notifications:
   email:
     recipients:
       on_success: never
-      on_failure: never 
+      on_failure: always 
