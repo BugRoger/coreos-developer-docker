@@ -1,7 +1,6 @@
 # CoreOS Container Linux - Development Docker Container
 
 [![Build Status](https://travis-ci.org/BugRoger/coreos-developer-docker.svg?branch=master)](https://travis-ci.org/BugRoger/coreos-developer-docker)
-[![Docker Pulls](https://img.shields.io/docker/pulls/bugroger/coreos-developer.svg)]()
 
 This repository automatically builds a Docker container of the CoreOS Container
 Linux Development image.
