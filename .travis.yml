@@ -26,5 +26,3 @@ notifications:
   slack: 
     rooms:
       - d26a:3WFB88N8V6onXGdA4fCwOvd4
-    on_success: never 
-    on_failure: always 
