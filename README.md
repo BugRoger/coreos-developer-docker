@@ -1,6 +1,7 @@
 # CoreOS Container Linux - Development Docker Container
 
 [![Build Status](https://travis-ci.org/BugRoger/coreos-developer-docker.svg?branch=master)](https://travis-ci.org/BugRoger/coreos-developer-docker)
+[![Docker Pulls](https://img.shields.io/docker/pulls/bugroger/coreos-developer.svg)]()
 
 This repository automatically builds a Docker container of the CoreOS Container
 Linux Development image.
@@ -26,6 +27,14 @@ This makes the build indempotent and avoids daily churn on Travis.
 With the way CoreOS is promoting versions through the channels, this will
 usually only build new alpha versions. There's a maximum latency from release
 to availability of this Docker image.
+
+## Docker Image
+
+Find the image on Docker Hub: https://hub.docker.com/r/bugroger/coreos-developer/
+
+```
+docker pull bugroger/coreos-developer:1576.5.0
+```
 
 ## Usage in Docker
 
@@ -68,5 +77,5 @@ docker build \
   .
 ```
 
-A comeplete example using this technique can be seen at
-[coreos-nvidia-driver](https://github.com/BugRoger/coreos-nvidia-driver).  
+A complete example using this technique can be seen at
+[coreos-nvidia-driver](https://github.com/BugRoger/coreos-nvidia-driver)
