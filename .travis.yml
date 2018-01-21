@@ -7,10 +7,14 @@ env:
   - COREOS_TRACK=alpha
 
 before_script:
-  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
   - curl https://${COREOS_TRACK}.release.core-os.net/amd64-usr/current/version.txt -o version.txt
+  - cat version.txt
   - export $(cat version.txt | xargs)
-  - curl -s https://hub.docker.com/v2/repositories/${DOCKER_USERNAME}/coreos-developer/tags/?page_size=10000 | jq -e "[.results | .[] | .name == \"${COREOS_VERSION}\"] | any | not" || travis_terminate 0
+  - if [ "$TRAVIS_EVENT_TYPE" == "cron" ]; then
+      curl -s https://hub.docker.com/v2/repositories/${DOCKER_USERNAME}/${IMAGE}/tags/?page_size=10000 | \
+      jq -e "[.results | .[] | .name == \"${COREOS_VERSION}-${NVIDIA_DRIVER_VERSION}\"] | any | not" || \
+      travis_terminate 0
+    fi
 
 script:
   - curl -L https://${COREOS_TRACK}.release.core-os.net/amd64-usr/${COREOS_VERSION}/coreos_developer_container.bin.bz2 -o coreos_developer_container.bin.bz2
@@ -20,9 +24,29 @@ script:
   - sudo tar -cp --one-file-system -C ${COREOS_VERSION} . | docker import - ${DOCKER_USERNAME}/coreos-developer:${COREOS_VERSION}
 
 after_success:
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
   - docker push ${DOCKER_USERNAME}/coreos-developer:${COREOS_VERSION}
+
+jobs:
+  include:
+    - stage: trigger
+      script:
+        - gem install travis --no-rdoc --no-ri
+        - travis login --org --skip-completion-check --no-manual --explode --github-token=${GITHUB_TOKEN}
+        - token=$(travis token --org --skip-completion-check --no-interactive)
+        - |
+          curl -s -X POST \
+            -H "Content-Type: application/json" \
+            -H "Accept: application/json" \
+            -H "Travis-API-Version: 3" \
+            -H "Authorization: token ${token}" \
+            -d "{ \"request\": { \"branch\":\"master\" }}" \
+            https://api.travis-ci.org/repo/BugRoger%2Fcoreos-nvidia-driver/requests
 
 notifications:
   slack: 
     rooms:
       - d26a:3WFB88N8V6onXGdA4fCwOvd4
+    on_success: change 
+    on_failure: always
+
