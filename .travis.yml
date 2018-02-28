@@ -11,7 +11,7 @@ before_script:
   - cat version.txt
   - export $(cat version.txt | xargs)
   - if [ "$TRAVIS_EVENT_TYPE" != "push" ]; then
-      curl -s https://hub.docker.com/v2/repositories/${DOCKER_USERNAME}/${IMAGE}/tags/?page_size=10000 | 
+      curl -s https://hub.docker.com/v2/repositories/${DOCKER_USERNAME}/coreos-developer/tags/?page_size=10000 | 
       jq -e "[.results | .[] | .name == \"${COREOS_VERSION}\"] | any | not" || 
       travis_terminate 0;
     fi
